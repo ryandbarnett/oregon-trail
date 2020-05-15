@@ -1,9 +1,9 @@
 class Settler {
-  constructor(settlerData) {
-    this.name = settlerData.name;
-    this.age = settlerData.age;
-    this.nationality = settlerData.nationality || 'unknown';
-    this.ailments = [];
+  constructor({name, age, ailments = [], nationality = 'unknown'}) {
+    this.name = name;
+    this.age = age;
+    this.nationality = nationality;
+    this.ailments = ailments;
     this.statuses = ['healthy', 'fair', 'poor', 'dead'];
     this.status = this.statuses[this.ailments.length];
   }
