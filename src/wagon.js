@@ -19,14 +19,22 @@ class Wagon {
   }
 
   canTravel() {
-    const {wheels, axles, oxen, yokes, settlers} = this;
+    const {wheels, axles, oxen, yokes, settlers, filterBroken, filterDead} = this;
     return (
-      wheels.filter(wheel => !wheel.broken).length === 4 &&
-      axles.filter(axle => !axle.broken).length >= 2 &&
-      oxen.filter(ox => !ox.broken).length >= 2 &&
-      yokes.filter(yoke => !yoke.broken).length >= oxen.filter(ox => !ox.broken).length / 2 &&
-      settlers.filter(settler => settler.status != 'dead').length >= 1
+      filterBroken(wheels).length === 4 &&
+      filterBroken(axles).length >= 2 &&
+      filterBroken(oxen).length >= 2 &&
+      filterBroken(yokes).length >= filterBroken(oxen).length / 2 &&
+      filterDead(settlers).length >= 1
     );
+  }
+
+  filterBroken(parts) {
+    return parts.filter(part => !part.broken);
+  }
+
+  filterDead(settlers) {
+    return settlers.filter(settler => settler.status != 'dead')
   }
 }
 
